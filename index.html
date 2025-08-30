@@ -107,6 +107,14 @@
       color: var(--primary-color);
     }
 
+    nav a.active {
+      color: var(--primary-color);
+    }
+
+    nav a.active::after {
+      width: 100%;
+    }
+
     .cta-button {
       background: var(--primary-color);
       color: white;
@@ -1321,5 +1329,68 @@
       <p>© 2025 ColLab. All Rights Reserved. | Privacy Policy | Terms of Service</p>
     </div>
   </footer>
+
+  <script>
+    // Smooth scrolling for navigation links
+    document.addEventListener('DOMContentLoaded', function() {
+      // Get all navigation links
+      const navLinks = document.querySelectorAll('nav a[href^="#"]');
+      
+      // Add click event listener to each link
+      navLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+          e.preventDefault();
+          
+          // Get the target section ID from the href
+          const targetId = this.getAttribute('href');
+          const targetSection = document.querySelector(targetId);
+          
+          if (targetSection) {
+            // Calculate the position accounting for the fixed header
+            const headerHeight = document.querySelector('header').offsetHeight;
+            const targetPosition = targetSection.offsetTop - headerHeight - 20; // 20px extra padding
+            
+            // Smooth scroll to the target position
+            window.scrollTo({
+              top: targetPosition,
+              behavior: 'smooth'
+            });
+          }
+        });
+      });
+      
+      // Optional: Add active state to nav links based on scroll position
+      const sections = document.querySelectorAll('section[id]');
+      
+      function updateActiveNavLink() {
+        const scrollPosition = window.scrollY + 100; // Offset for header
+        
+        sections.forEach(section => {
+          const sectionTop = section.offsetTop;
+          const sectionHeight = section.clientHeight;
+          const sectionId = section.getAttribute('id');
+          
+          if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+            // Remove active class from all links
+            navLinks.forEach(link => {
+              link.classList.remove('active');
+            });
+            
+            // Add active class to current section's link
+            const activeLink = document.querySelector(`nav a[href="#${sectionId}"]`);
+            if (activeLink) {
+              activeLink.classList.add('active');
+            }
+          }
+        });
+      }
+      
+      // Update active link on scroll
+      window.addEventListener('scroll', updateActiveNavLink);
+      
+      // Initial check
+      updateActiveNavLink();
+    });
+  </script>
 </body>
 </html>
