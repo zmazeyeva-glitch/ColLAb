@@ -426,8 +426,13 @@
         rgba(163, 88, 88, 0.1) 0%, 
         transparent 50%, 
         rgba(212, 165, 116, 0.05) 100%);
-      border-radius: 20px;
+      border-radius: var(--radius-lg);
       pointer-events: none;
+    }
+
+    /* Mobile image - hidden by default on desktop */
+    .hero-image-mobile {
+      display: none;
     }
 
     .hero-image-placeholder {
@@ -1431,23 +1436,36 @@
       }
 
       .hero-container {
-        gap: 40px;
+        gap: 0;
         display: flex;
         flex-direction: column;
       }
 
-      /* Reorder hero content on mobile - image first */
-      .hero-content {
-        order: 2;
+      /* Hide desktop image on mobile */
+      .hero-image {
+        display: none;
       }
 
-      .hero-image {
-        order: 1;
+      /* Show mobile image */
+      .hero-image-mobile {
+        display: block;
         width: 100%;
         max-width: 500px;
         margin: 0 auto 30px;
+        position: relative;
       }
 
+      .hero-image-mobile img {
+        width: 100%;
+        height: auto;
+        max-height: 400px;
+        object-fit: cover;
+        border-radius: var(--radius-lg);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        filter: brightness(1.05) contrast(1.02);
+      }
+
+      /* Title and subtitle stay at top */
       .hero-content h1 {
         font-size: clamp(1.8rem, 6vw, 2.5rem);
         margin-bottom: 20px;
@@ -1458,6 +1476,7 @@
         margin-bottom: 30px;
       }
 
+      /* Features list */
       .hero-features {
         margin: 25px 0;
         text-align: left;
@@ -1471,6 +1490,7 @@
         padding: 8px 0;
       }
 
+      /* Buttons at the bottom */
       .hero-buttons {
         flex-direction: column;
         gap: 15px;
@@ -1481,12 +1501,6 @@
         width: 100%;
         padding: 18px 40px;
         font-size: 1.05rem;
-      }
-
-      .hero-image img {
-        max-height: 400px;
-        width: 100%;
-        height: auto;
       }
 
       .modules, .features, .instructors, .pricing {
@@ -1630,11 +1644,11 @@
         font-size: 0.95rem;
       }
 
-      .hero-image {
+      .hero-image-mobile {
         margin: 0 auto 20px;
       }
 
-      .hero-image img {
+      .hero-image-mobile img {
         max-height: 300px;
       }
 
@@ -1743,6 +1757,9 @@
       <div class="hero-content">
         <h1 data-i18n="hero.title">Get Hired Globally.<br>Master English.</h1>
         <p class="subtitle" data-i18n="hero.subtitle">Transform your career with professional English skills designed for the international job market</p>
+        <div class="hero-image-mobile">
+          <img src="img/main_image.jpeg" alt="Professional Learning Platform">
+        </div>
         <ul class="hero-features">
           <li data-i18n="hero.feature1">6 Comprehensive Modules</li>
           <li data-i18n="hero.feature2">Live Mock Interview</li>
