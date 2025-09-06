@@ -1,5 +1,6 @@
-# Project documentation
+# Project documentation and Claude agents
 CLAUDE.md
+.claude/
 
 # OS generated files
 .DS_Store
