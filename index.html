@@ -106,6 +106,54 @@
       align-items: center;
     }
 
+    /* Language Switcher */
+    .language-switcher {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-left: 20px;
+      padding: 8px 12px;
+      background: rgba(163, 88, 88, 0.05);
+      border-radius: 100px;
+      border: 1px solid rgba(163, 88, 88, 0.1);
+      transition: var(--transition);
+    }
+
+    .language-switcher:hover {
+      background: rgba(163, 88, 88, 0.08);
+      border-color: rgba(163, 88, 88, 0.2);
+    }
+
+    .lang-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-dark);
+      font-weight: 500;
+      font-size: 0.9rem;
+      cursor: pointer;
+      padding: 6px 12px;
+      border-radius: 100px;
+      transition: var(--transition);
+      position: relative;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .lang-btn.active {
+      background: var(--primary-color);
+      color: white;
+    }
+
+    .lang-btn:not(.active):hover {
+      background: rgba(163, 88, 88, 0.1);
+    }
+
+    .lang-divider {
+      width: 1px;
+      height: 20px;
+      background: rgba(163, 88, 88, 0.2);
+    }
+
     nav a {
       text-decoration: none;
       color: var(--text-dark);
@@ -378,8 +426,13 @@
         rgba(163, 88, 88, 0.1) 0%, 
         transparent 50%, 
         rgba(212, 165, 116, 0.05) 100%);
-      border-radius: 20px;
+      border-radius: var(--radius-lg);
       pointer-events: none;
+    }
+
+    /* Mobile image - hidden by default on desktop */
+    .hero-image-mobile {
+      display: none;
     }
 
     .hero-image-placeholder {
@@ -1238,23 +1291,6 @@
       scroll-behavior: smooth;
     }
 
-    /* Custom scrollbar */
-    ::-webkit-scrollbar {
-      width: 12px;
-    }
-
-    ::-webkit-scrollbar-track {
-      background: var(--bg-light);
-    }
-
-    ::-webkit-scrollbar-thumb {
-      background: linear-gradient(180deg, var(--primary-color), var(--primary-light));
-      border-radius: 6px;
-    }
-
-    ::-webkit-scrollbar-thumb:hover {
-      background: linear-gradient(180deg, var(--primary-dark), var(--primary-color));
-    }
 
     /* Mobile Menu Styles */
     .mobile-menu-toggle {
@@ -1400,9 +1436,36 @@
       }
 
       .hero-container {
-        gap: 40px;
+        gap: 0;
+        display: flex;
+        flex-direction: column;
       }
 
+      /* Hide desktop image on mobile */
+      .hero-image {
+        display: none;
+      }
+
+      /* Show mobile image */
+      .hero-image-mobile {
+        display: block;
+        width: 100%;
+        max-width: 500px;
+        margin: 0 auto 30px;
+        position: relative;
+      }
+
+      .hero-image-mobile img {
+        width: 100%;
+        height: auto;
+        max-height: 400px;
+        object-fit: cover;
+        border-radius: var(--radius-lg);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        filter: brightness(1.05) contrast(1.02);
+      }
+
+      /* Title and subtitle stay at top */
       .hero-content h1 {
         font-size: clamp(1.8rem, 6vw, 2.5rem);
         margin-bottom: 20px;
@@ -1413,8 +1476,13 @@
         margin-bottom: 30px;
       }
 
+      /* Features list */
       .hero-features {
         margin: 25px 0;
+        text-align: left;
+        max-width: 400px;
+        margin-left: auto;
+        margin-right: auto;
       }
 
       .hero-features li {
@@ -1422,6 +1490,7 @@
         padding: 8px 0;
       }
 
+      /* Buttons at the bottom */
       .hero-buttons {
         flex-direction: column;
         gap: 15px;
@@ -1432,18 +1501,6 @@
         width: 100%;
         padding: 18px 40px;
         font-size: 1.05rem;
-      }
-
-      .hero-image {
-        width: 100%;
-        max-width: 500px;
-        margin: 0 auto;
-      }
-
-      .hero-image img {
-        max-height: 400px;
-        width: 100%;
-        height: auto;
       }
 
       .modules, .features, .instructors, .pricing {
@@ -1587,6 +1644,14 @@
         font-size: 0.95rem;
       }
 
+      .hero-image-mobile {
+        margin: 0 auto 20px;
+      }
+
+      .hero-image-mobile img {
+        max-height: 300px;
+      }
+
       .module-card,
       .feature-card,
       .instructor-card {
@@ -1653,11 +1718,16 @@
         <span class="brand-name">ColLab</span>
       </div>
       <nav>
-        <a href="#home">Home</a>
-        <a href="#modules">Modules</a>
-        <a href="#about">About</a>
-        <a href="#pricing">Pricing</a>
-        <button class="cta-button" onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSf2EfatLGiBouR9krSWpJjTayWAqQHsah7l_bVnGokwK8Viqg/viewform', '_blank')"><span>Get Started</span></button>
+        <a href="#home" data-i18n="nav.home">Home</a>
+        <a href="#modules" data-i18n="nav.modules">Modules</a>
+        <a href="#about" data-i18n="nav.about">About</a>
+        <a href="#pricing" data-i18n="nav.pricing">Pricing</a>
+        <button class="cta-button" onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSf2EfatLGiBouR9krSWpJjTayWAqQHsah7l_bVnGokwK8Viqg/viewform', '_blank')"><span data-i18n="nav.get_started">Get Started</span></button>
+        <div class="language-switcher">
+          <button class="lang-btn active" onclick="changeLanguage('en')">EN</button>
+          <div class="lang-divider"></div>
+          <button class="lang-btn" onclick="changeLanguage('ru')">RU</button>
+        </div>
       </nav>
       <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle mobile menu">
         <span></span>
@@ -1669,29 +1739,37 @@
 
   <!-- Mobile Navigation -->
   <nav class="mobile-nav" id="mobileNav">
-    <a href="#home" onclick="closeMobileMenu()">Home</a>
-    <a href="#modules" onclick="closeMobileMenu()">Modules</a>
-    <a href="#about" onclick="closeMobileMenu()">About</a>
-    <a href="#pricing" onclick="closeMobileMenu()">Pricing</a>
-    <button class="cta-button" onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSf2EfatLGiBouR9krSWpJjTayWAqQHsah7l_bVnGokwK8Viqg/viewform', '_blank'); closeMobileMenu()"><span>Get Started</span></button>
+    <a href="#home" onclick="closeMobileMenu()" data-i18n="nav.home">Home</a>
+    <a href="#modules" onclick="closeMobileMenu()" data-i18n="nav.modules">Modules</a>
+    <a href="#about" onclick="closeMobileMenu()" data-i18n="nav.about">About</a>
+    <a href="#pricing" onclick="closeMobileMenu()" data-i18n="nav.pricing">Pricing</a>
+    <button class="cta-button" onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSf2EfatLGiBouR9krSWpJjTayWAqQHsah7l_bVnGokwK8Viqg/viewform', '_blank'); closeMobileMenu()"><span data-i18n="nav.get_started">Get Started</span></button>
+    <div class="language-switcher" style="margin-top: 20px;">
+      <button class="lang-btn active" onclick="changeLanguage('en'); closeMobileMenu()">EN</button>
+      <div class="lang-divider"></div>
+      <button class="lang-btn" onclick="changeLanguage('ru'); closeMobileMenu()">RU</button>
+    </div>
   </nav>
 
   <!-- Hero Section -->
   <section class="hero" id="home">
     <div class="hero-container">
       <div class="hero-content">
-        <h1>Get Hired Globally.<br>Master English.</h1>
-        <p class="subtitle">Transform your career with professional English skills designed for the international job market</p>
+        <h1 data-i18n="hero.title">Get Hired Globally.<br>Master English.</h1>
+        <p class="subtitle" data-i18n="hero.subtitle">Transform your career with professional English skills designed for the international job market</p>
+        <div class="hero-image-mobile">
+          <img src="img/main_image.jpeg" alt="Professional Learning Platform">
+        </div>
         <ul class="hero-features">
-          <li>6 Comprehensive Modules</li>
-          <li>Live Mock Interview</li>
-          <li>Expert Feedback</li>
-          <li>CV & LinkedIn Optimization and Job Search Strategies</li>
-          <li>Career Consulting</li>
-          <li>Speaking Club & Online Seminars</li>
+          <li data-i18n="hero.feature1">6 Comprehensive Modules</li>
+          <li data-i18n="hero.feature2">Live Mock Interview</li>
+          <li data-i18n="hero.feature3">Expert Feedback</li>
+          <li data-i18n="hero.feature4">CV & LinkedIn Optimization and Job Search Strategies</li>
+          <li data-i18n="hero.feature5">Career Consulting</li>
+          <li data-i18n="hero.feature6">Speaking Club & Online Seminars</li>
         </ul>
         <div class="hero-buttons">
-          <button class="btn-primary" onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSf2EfatLGiBouR9krSWpJjTayWAqQHsah7l_bVnGokwK8Viqg/viewform', '_blank')">Enroll Now</button>
+          <button class="btn-primary" onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSf2EfatLGiBouR9krSWpJjTayWAqQHsah7l_bVnGokwK8Viqg/viewform', '_blank')" data-i18n="hero.enroll_now">Enroll Now</button>
         </div>
       </div>
       <div class="hero-image">
@@ -1725,40 +1803,40 @@
   <!-- Course Modules Section -->
   <section class="modules" id="modules">
     <div class="section-header">
-      <h2>6 Comprehensive Modules</h2>
-      <p>Designed to Elevate Your Career and Transform Your Professional English</p>
+      <h2 data-i18n="modules.title">6 Comprehensive Modules</h2>
+      <p data-i18n="modules.subtitle">Designed to Elevate Your Career and Transform Your Professional English</p>
     </div>
     <div class="modules-grid">
       <div class="module-card">
-        <h3>4 Online Meets</h3>
+        <h3 data-i18n="modules.online_meets.title">4 Online Meets</h3>
         <p></p>
         <ul class="module-topics">
-          <li>English Level Check</li>
-          <li>Career Consulting Session</li>
-          <li>Mock Interview in English</li>
-          <li>English Speaking Club</li>
+          <li data-i18n="modules.online_meets.item1">English Level Check</li>
+          <li data-i18n="modules.online_meets.item2">Career Consulting Session</li>
+          <li data-i18n="modules.online_meets.item3">Mock Interview in English</li>
+          <li data-i18n="modules.online_meets.item4">English Speaking Club</li>
         </ul>
       </div>
       <div class="module-card">
-        <h3>6 Modules</h3>
+        <h3 data-i18n="modules.six_modules.title">6 Modules</h3>
         <p></p>
         <ul class="module-topics">
-          <li>Module 1: CV</li>
-          <li>Module 2: Cover Letter</li>
-          <li>Module 3: LinkedIn</li>
-          <li>Module 4: Job Search Strategy</li>
-          <li>Module 5: Self-Presentation</li>
-          <li>Module 6: Mock Interview</li>
+          <li data-i18n="modules.six_modules.item1">Module 1: CV</li>
+          <li data-i18n="modules.six_modules.item2">Module 2: Cover Letter</li>
+          <li data-i18n="modules.six_modules.item3">Module 3: LinkedIn</li>
+          <li data-i18n="modules.six_modules.item4">Module 4: Job Search Strategy</li>
+          <li data-i18n="modules.six_modules.item5">Module 5: Self-Presentation</li>
+          <li data-i18n="modules.six_modules.item6">Module 6: Mock Interview</li>
         </ul>
       </div>
       <div class="module-card">
-        <h3>Your Takeaways</h3>
+        <h3 data-i18n="modules.takeaways.title">Your Takeaways</h3>
         <p></p>
         <ul class="module-topics">
-          <li>Winning CV</li>
-          <li>Polished Self-Presentation</li>
-          <li>2 Summaries for LinkedIn and CV</li>
-          <li>Proven Insights & Tips to Ace Your Interview</li>
+          <li data-i18n="modules.takeaways.item1">Winning CV</li>
+          <li data-i18n="modules.takeaways.item2">Polished Self-Presentation</li>
+          <li data-i18n="modules.takeaways.item3">2 Summaries for LinkedIn and CV</li>
+          <li data-i18n="modules.takeaways.item4">Proven Insights & Tips to Ace Your Interview</li>
         </ul>
       </div>
     </div>
@@ -1767,29 +1845,29 @@
   <!-- Features Section -->
   <section class="features">
     <div class="section-header">
-      <h2>Why Choose ColLab</h2>
-      <p>Everything you need to succeed in the international job market</p>
+      <h2 data-i18n="features.title">Why Choose ColLab</h2>
+      <p data-i18n="features.subtitle">Everything you need to succeed in the international job market</p>
     </div>
     <div class="features-grid">
       <div class="feature-card">
         <div class="feature-icon"><img src="icons/group.png" alt="Small Groups"></div>
-        <h3>Small Group Sessions</h3>
-        <p>Ensure Personal Attention and Plenty of Speaking Practice</p>
+        <h3 data-i18n="features.small_groups.title">Small Group Sessions</h3>
+        <p data-i18n="features.small_groups.text">Ensure Personal Attention and Plenty of Speaking Practice</p>
       </div>
       <div class="feature-card">
         <div class="feature-icon"><img src="icons/focus.png" alt="Practice Focus"></div>
-        <h3>Practice Focus</h3>
-        <p>Real World Scenarios<br>Actual Job-Related Cases and Hands-on Practice that Prepares You to Apply Immediately</p>
+        <h3 data-i18n="features.practice.title">Practice Focus</h3>
+        <p data-i18n="features.practice.text">Real World Scenarios<br>Actual Job-Related Cases and Hands-on Practice that Prepares You to Apply Immediately</p>
       </div>
       <div class="feature-card">
         <div class="feature-icon"><img src="icons/chat.png" alt="Speaking Club"></div>
-        <h3>Speaking Club</h3>
-        <p>Builds Confidence and Fluency in Professional Contexts</p>
+        <h3 data-i18n="features.speaking_club.title">Speaking Club</h3>
+        <p data-i18n="features.speaking_club.text">Builds Confidence and Fluency in Professional Contexts</p>
       </div>
       <div class="feature-card">
         <div class="feature-icon"><img src="icons/support.png" alt="Support"></div>
-        <h3>Support</h3>
-        <p>Telegram chat support, daily exercises, and continuous feedback throughout your journey</p>
+        <h3 data-i18n="features.support.title">Support</h3>
+        <p data-i18n="features.support.text">Telegram chat support, daily exercises, and continuous feedback throughout your journey</p>
       </div>
     </div>
   </section>
@@ -1797,25 +1875,25 @@
   <!-- Instructors Section -->
   <section class="instructors" id="about">
     <div class="section-header">
-      <h2>Meet Your Instructors</h2>
-      <p>Learn from experienced professionals who've helped hundreds succeed globally</p>
+      <h2 data-i18n="instructors.title">Meet Your Instructors</h2>
+      <p data-i18n="instructors.subtitle">Learn from experienced professionals who've helped hundreds succeed globally</p>
     </div>
     <div class="instructors-grid">
       <div class="instructor-card">
         <div class="instructor-photo">
           <img src="img/zinaida_transparent_bw.png" alt="Zinaida Palshyna">
         </div>
-        <h3>Zinaida Palshyna</h3>
-        <p class="instructor-title">Celta certified EFL instructor</p>
-        <p class="instructor-bio">Qualified EFL teacher with 10+ years of experience. Internationally certified to teach adults worldwide. Specializes in exam preparation (Cambridge English Qualifications, IELTS, LanguageCert for UKVI) and customized language training for specific professional and academic needs.</p>
+        <h3 data-i18n="instructors.zina.name">Zinaida Palshyna</h3>
+        <p class="instructor-title" data-i18n="instructors.zina.title">Celta certified EFL instructor</p>
+        <p class="instructor-bio" data-i18n="instructors.zina.bio">Qualified EFL teacher with 10+ years of experience. Internationally certified to teach adults worldwide. Specializes in exam preparation (Cambridge English Qualifications, IELTS, LanguageCert for UKVI) and customized language training for specific professional and academic needs.</p>
       </div>
       <div class="instructor-card">
         <div class="instructor-photo">
           <img src="img/katerina_transparent_bw.png" alt="Katerina Valadzko">
         </div>
-        <h3>Katerina Valadzko</h3>
-        <p class="instructor-title">Lead IT-recruiter and Career Consultant</p>
-        <p class="instructor-bio">IT Recruiter with 4+ years experience with tech & non-tech vacancies. Specializes in full-cycle recruitment across Europe, CIS & LatAm. Expert in LinkedIn strategies, interview preparation, and career positioning. 250+ interviews conducted yearly.</p>
+        <h3 data-i18n="instructors.katya.name">Katerina Valadzko</h3>
+        <p class="instructor-title" data-i18n="instructors.katya.title">Lead IT-recruiter and Career Consultant</p>
+        <p class="instructor-bio" data-i18n="instructors.katya.bio">IT Recruiter with 4+ years experience with tech & non-tech vacancies. Specializes in full-cycle recruitment across Europe, CIS & LatAm. Expert in LinkedIn strategies, interview preparation, and career positioning. 250+ interviews conducted yearly.</p>
       </div>
     </div>
   </section>
@@ -1866,22 +1944,22 @@
   <!-- Pricing Section -->
   <section class="pricing" id="pricing">
     <div class="section-header">
-      <h2>Investment in Your Future</h2>
-      <p>Choose the plan that fits your career goals</p>
+      <h2 data-i18n="pricing.title">Investment in Your Future</h2>
+      <p data-i18n="pricing.subtitle">Choose the plan that fits your career goals</p>
     </div>
     <div class="pricing-cards" style="max-width: 400px; margin: 0 auto;">
       <div class="pricing-card">
-        <h3 class="pricing-plan">Professional</h3>
+        <h3 class="pricing-plan" data-i18n="pricing.plan">Professional</h3>
         <div class="pricing-price">€170</div>
-        <p class="pricing-duration">One-time payment</p>
+        <p class="pricing-duration" data-i18n="pricing.payment">One-time payment</p>
         <ul class="pricing-features">
-          <li>Live Group Sessions</li>
-          <li>Mock Job Interview</li>
-          <li>English Level Interview</li>
-          <li>Speaking Club Access</li>
-          <li>Everything is Self-paced</li>
-          <li>Personal Feedback</li>
-          <li>2 Months Access</li>
+          <li data-i18n="pricing.feature1">Live Group Sessions</li>
+          <li data-i18n="pricing.feature2">Mock Job Interview</li>
+          <li data-i18n="pricing.feature3">English Level Interview</li>
+          <li data-i18n="pricing.feature4">Speaking Club Access</li>
+          <li data-i18n="pricing.feature5">Everything is Self-paced</li>
+          <li data-i18n="pricing.feature6">Personal Feedback</li>
+          <li data-i18n="pricing.feature7">2 Months Access</li>
         </ul>
       </div>
     </div>
@@ -1890,10 +1968,10 @@
   <!-- CTA Section -->
   <section class="cta-section">
     <div class="cta-content">
-      <h2>Ready to Transform Your Career?</h2>
-      <p>Join The Next ColLAb. Limited Spots Available!</p>
+      <h2 data-i18n="cta.title">Ready to Transform Your Career?</h2>
+      <p data-i18n="cta.subtitle">Join The Next ColLAb. Limited Spots Available!</p>
       <div class="cta-buttons">
-        <button class="btn-white" onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSf2EfatLGiBouR9krSWpJjTayWAqQHsah7l_bVnGokwK8Viqg/viewform', '_blank')">Enroll Now</button>
+        <button class="btn-white" onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSf2EfatLGiBouR9krSWpJjTayWAqQHsah7l_bVnGokwK8Viqg/viewform', '_blank')" data-i18n="cta.enroll_now">Enroll Now</button>
       </div>
     </div>
   </section>
@@ -1945,6 +2023,250 @@
   </footer>
 
   <script>
+    // Translation system
+    const translations = {
+      en: {
+        nav: {
+          home: "Home",
+          modules: "Modules",
+          about: "About",
+          pricing: "Pricing",
+          get_started: "Get Started"
+        },
+        hero: {
+          title: "Get Hired Globally.<br>Master English.",
+          subtitle: "Transform your career with professional English skills designed for the international job market",
+          feature1: "6 Comprehensive Modules",
+          feature2: "Live Mock Interview",
+          feature3: "Expert Feedback",
+          feature4: "CV & LinkedIn Optimization and Job Search Strategies",
+          feature5: "Career Consulting",
+          feature6: "Speaking Club & Online Seminars",
+          enroll_now: "Enroll Now"
+        },
+        modules: {
+          title: "6 Comprehensive Modules",
+          subtitle: "Designed to Elevate Your Career and Transform Your Professional English",
+          online_meets: {
+            title: "4 Online Meets",
+            item1: "English Level Check",
+            item2: "Career Consulting Session",
+            item3: "Mock Interview in English",
+            item4: "English Speaking Club"
+          },
+          six_modules: {
+            title: "6 Modules",
+            item1: "Module 1: CV",
+            item2: "Module 2: Cover Letter",
+            item3: "Module 3: LinkedIn",
+            item4: "Module 4: Job Search Strategy",
+            item5: "Module 5: Self-Presentation",
+            item6: "Module 6: Mock Interview"
+          },
+          takeaways: {
+            title: "Your Takeaways",
+            item1: "Winning CV",
+            item2: "Polished Self-Presentation",
+            item3: "2 Summaries for LinkedIn and CV",
+            item4: "Proven Insights & Tips to Ace Your Interview"
+          }
+        },
+        features: {
+          title: "Why Choose ColLab",
+          subtitle: "Everything you need to succeed in the international job market",
+          small_groups: {
+            title: "Small Group Sessions",
+            text: "Ensure Personal Attention and Plenty of Speaking Practice"
+          },
+          practice: {
+            title: "Practice Focus",
+            text: "Real World Scenarios<br>Actual Job-Related Cases and Hands-on Practice that Prepares You to Apply Immediately"
+          },
+          speaking_club: {
+            title: "Speaking Club",
+            text: "Builds Confidence and Fluency in Professional Contexts"
+          },
+          support: {
+            title: "Support",
+            text: "Telegram chat support, daily exercises, and continuous feedback throughout your journey"
+          }
+        },
+        instructors: {
+          title: "Meet Your Instructors",
+          subtitle: "Learn from experienced professionals who've helped hundreds succeed globally",
+          zina: {
+            name: "Zinaida Palshyna",
+            title: "Celta certified EFL instructor",
+            bio: "Qualified EFL teacher with 10+ years of experience. Internationally certified to teach adults worldwide. Specializes in exam preparation (Cambridge English Qualifications, IELTS, LanguageCert for UKVI) and customized language training for specific professional and academic needs."
+          },
+          katya: {
+            name: "Katerina Valadzko",
+            title: "Lead IT-recruiter and Career Consultant",
+            bio: "IT Recruiter with 4+ years experience with tech & non-tech vacancies. Specializes in full-cycle recruitment across Europe, CIS & LatAm. Expert in LinkedIn strategies, interview preparation, and career positioning. 250+ interviews conducted yearly."
+          }
+        },
+        pricing: {
+          title: "Investment in Your Future",
+          subtitle: "Choose the plan that fits your career goals",
+          plan: "Professional",
+          payment: "One-time payment",
+          feature1: "Live Group Sessions",
+          feature2: "Mock Job Interview",
+          feature3: "English Level Interview",
+          feature4: "Speaking Club Access",
+          feature5: "Everything is Self-paced",
+          feature6: "Personal Feedback",
+          feature7: "2 Months Access"
+        },
+        cta: {
+          title: "Ready to Transform Your Career?",
+          subtitle: "Join The Next ColLAb. Limited Spots Available!",
+          enroll_now: "Enroll Now"
+        }
+      },
+      ru: {
+        nav: {
+          home: "Главная",
+          modules: "Модули",
+          about: "О нас",
+          pricing: "Цены",
+          get_started: "Начать"
+        },
+        hero: {
+          title: "Работай по всему миру.<br>Освой английский.",
+          subtitle: "Трансформируй свою карьеру с профессиональным английским для международного рынка труда",
+          feature1: "6 комплексных модулей",
+          feature2: "Живое пробное собеседование",
+          feature3: "Экспертная обратная связь",
+          feature4: "Оптимизация резюме и LinkedIn, стратегии поиска работы",
+          feature5: "Карьерный консалтинг",
+          feature6: "Разговорный клуб и онлайн-семинары",
+          enroll_now: "Записаться"
+        },
+        modules: {
+          title: "6 комплексных модулей",
+          subtitle: "Разработаны для продвижения вашей карьеры и трансформации профессионального английского",
+          online_meets: {
+            title: "4 онлайн-встречи",
+            item1: "Проверка уровня английского",
+            item2: "Сессия карьерного консалтинга",
+            item3: "Пробное собеседование на английском",
+            item4: "Английский разговорный клуб"
+          },
+          six_modules: {
+            title: "6 модулей",
+            item1: "Модуль 1: Резюме",
+            item2: "Модуль 2: Сопроводительное письмо",
+            item3: "Модуль 3: LinkedIn",
+            item4: "Модуль 4: Стратегия поиска работы",
+            item5: "Модуль 5: Самопрезентация",
+            item6: "Модуль 6: Пробное собеседование"
+          },
+          takeaways: {
+            title: "Ваши результаты",
+            item1: "Выигрышное резюме",
+            item2: "Отточенная самопрезентация",
+            item3: "2 резюме для LinkedIn и CV",
+            item4: "Проверенные советы для успешного собеседования"
+          }
+        },
+        features: {
+          title: "Почему выбирают ColLab",
+          subtitle: "Всё необходимое для успеха на международном рынке труда",
+          small_groups: {
+            title: "Малые группы",
+            text: "Персональное внимание и много разговорной практики"
+          },
+          practice: {
+            title: "Фокус на практике",
+            text: "Реальные сценарии<br>Актуальные рабочие кейсы и практика для немедленного применения"
+          },
+          speaking_club: {
+            title: "Разговорный клуб",
+            text: "Развивает уверенность и беглость в профессиональном контексте"
+          },
+          support: {
+            title: "Поддержка",
+            text: "Поддержка в Telegram чате, ежедневные упражнения и постоянная обратная связь"
+          }
+        },
+        instructors: {
+          title: "Познакомьтесь с преподавателями",
+          subtitle: "Учитесь у опытных профессионалов, помогших сотням людей добиться успеха",
+          zina: {
+            name: "Зинаида Пальшина",
+            title: "Сертифицированный CELTA преподаватель английского",
+            bio: "Квалифицированный преподаватель английского с опытом более 10 лет. Международная сертификация для обучения взрослых. Специализация: подготовка к экзаменам (Cambridge English, IELTS, LanguageCert для UKVI) и индивидуальное обучение для профессиональных и академических целей."
+          },
+          katya: {
+            name: "Екатерина Володько",
+            title: "Ведущий IT-рекрутер и карьерный консультант",
+            bio: "IT-рекрутер с опытом 4+ года в технических и нетехнических вакансиях. Специализация: полный цикл рекрутинга в Европе, СНГ и Латинской Америке. Эксперт по стратегиям LinkedIn, подготовке к собеседованиям и карьерному позиционированию. 250+ собеседований в год."
+          }
+        },
+        pricing: {
+          title: "Инвестиция в ваше будущее",
+          subtitle: "Выберите план, соответствующий вашим карьерным целям",
+          plan: "Профессиональный",
+          payment: "Единоразовый платёж",
+          feature1: "Живые групповые сессии",
+          feature2: "Пробное собеседование",
+          feature3: "Оценка уровня английского",
+          feature4: "Доступ к разговорному клубу",
+          feature5: "Всё в своём темпе",
+          feature6: "Персональная обратная связь",
+          feature7: "2 месяца доступа"
+        },
+        cta: {
+          title: "Готовы трансформировать свою карьеру?",
+          subtitle: "Присоединяйтесь к следующему ColLAb. Количество мест ограничено!",
+          enroll_now: "Записаться"
+        }
+      }
+    };
+
+    let currentLanguage = localStorage.getItem('language') || 'en';
+
+    function changeLanguage(lang) {
+      currentLanguage = lang;
+      localStorage.setItem('language', lang);
+      
+      // Update language switcher buttons
+      document.querySelectorAll('.lang-btn').forEach(btn => {
+        btn.classList.remove('active');
+        if (btn.textContent.toLowerCase() === lang) {
+          btn.classList.add('active');
+        }
+      });
+      
+      // Update page language
+      document.documentElement.lang = lang;
+      
+      // Update all translated elements
+      updateTranslations();
+    }
+
+    function updateTranslations() {
+      const elements = document.querySelectorAll('[data-i18n]');
+      elements.forEach(element => {
+        const key = element.getAttribute('data-i18n');
+        const translation = getNestedProperty(translations[currentLanguage], key);
+        if (translation) {
+          element.innerHTML = translation;
+        }
+      });
+    }
+
+    function getNestedProperty(obj, key) {
+      return key.split('.').reduce((o, k) => o && o[k], obj);
+    }
+
+    // Initialize on page load
+    document.addEventListener('DOMContentLoaded', function() {
+      // Set initial language
+      changeLanguage(currentLanguage);
+    });
+
     // Mobile menu functionality
     const mobileMenuToggle = document.getElementById('mobileMenuToggle');
     const mobileNav = document.getElementById('mobileNav');
