@@ -473,6 +473,15 @@
       justify-content: center;
       font-size: 2rem;
       color: white;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .feature-icon img {
+      width: 40px;
+      height: 40px;
+      object-fit: contain;
+      filter: brightness(0) invert(1);
     }
 
     .feature-card h3 {
@@ -1040,8 +1049,8 @@
   <!-- Course Modules Section -->
   <section class="modules" id="modules">
     <div class="section-header">
-      <h2>6 Comprehensive Modules Designed to Elevate Your Career and Transform Your Professional English</h2>
-      <p></p>
+      <h2>6 Comprehensive Modules</h2>
+      <p>Designed to Elevate Your Career and Transform Your Professional English</p>
     </div>
     <div class="modules-grid">
       <div class="module-card">
@@ -1087,22 +1096,22 @@
     </div>
     <div class="features-grid" style="grid-template-columns: repeat(4, 1fr);">
       <div class="feature-card">
-        <div class="feature-icon">👥</div>
+        <div class="feature-icon"><img src="icons/group.png" alt="Small Groups"></div>
         <h3>Small Group Sessions</h3>
         <p>Ensure Personal Attention and Plenty of Speaking Practice</p>
       </div>
       <div class="feature-card">
-        <div class="feature-icon">🎯</div>
+        <div class="feature-icon"><img src="icons/focus.png" alt="Practice Focus"></div>
         <h3>Practice Focus</h3>
         <p>Real World Scenarios<br>Actual Job-Related Cases and Hands-on Practice that Prepares You to Apply Immediately</p>
       </div>
       <div class="feature-card">
-        <div class="feature-icon">💬</div>
+        <div class="feature-icon"><img src="icons/chat.png" alt="Speaking Club"></div>
         <h3>Speaking Club</h3>
         <p>Builds Confidence and Fluency in Professional Contexts</p>
       </div>
       <div class="feature-card">
-        <div class="feature-icon">📱</div>
+        <div class="feature-icon"><img src="icons/support.png" alt="Support"></div>
         <h3>Support</h3>
         <p>Telegram chat support, daily exercises, and continuous feedback throughout your journey</p>
       </div>
@@ -1121,7 +1130,7 @@
           <img src="img/zinaida_transparent_bw.png" alt="Zinaida Palshyna">
         </div>
         <h3>Zinaida Palshyna</h3>
-        <p class="instructor-title">Qualified EFL Teacher</p>
+        <p class="instructor-title">Celta certified EFL instructor</p>
         <p class="instructor-bio">Qualified EFL teacher with 10+ years of experience. Internationally certified to teach adults worldwide. Specializes in exam preparation (Cambridge English Qualifications, IELTS, LanguageCert for UKVI) and customized language training for specific professional and academic needs.</p>
       </div>
       <div class="instructor-card">
@@ -1198,7 +1207,6 @@
           <li>Personal Feedback</li>
           <li>2 Months Access</li>
         </ul>
-        <button class="btn-primary" onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSf2EfatLGiBouR9krSWpJjTayWAqQHsah7l_bVnGokwK8Viqg/viewform', '_blank')">Enroll Now</button>
       </div>
     </div>
   </section>
