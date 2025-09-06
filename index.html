@@ -1347,6 +1347,7 @@
       opacity: 0;
       transform: translateY(-20px);
       transition: all 0.3s ease;
+      padding: 20px;
     }
 
     .mobile-nav.active {
@@ -1360,7 +1361,7 @@
       color: var(--text-dark);
       font-size: 1.5rem;
       font-weight: 600;
-      margin: 20px 0;
+      margin: 25px 0;
       position: relative;
       transition: all 0.3s ease;
       opacity: 0;
@@ -1371,7 +1372,6 @@
     .mobile-nav.active a:nth-child(1) { animation-delay: 0.1s; }
     .mobile-nav.active a:nth-child(2) { animation-delay: 0.2s; }
     .mobile-nav.active a:nth-child(3) { animation-delay: 0.3s; }
-    .mobile-nav.active a:nth-child(4) { animation-delay: 0.4s; }
 
     .mobile-nav a:hover {
       color: var(--primary-color);
@@ -1379,10 +1379,19 @@
     }
 
     .mobile-nav .cta-button {
-      margin-top: 30px;
+      margin-top: 20px;
       opacity: 0;
       transform: translateY(20px);
       animation: fadeInUp 0.5s ease 0.5s forwards;
+      padding: 14px 32px;
+      font-size: 0.95rem;
+    }
+
+    .mobile-nav .language-switcher {
+      margin-top: 30px;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 0.5s ease 0.4s forwards;
     }
 
     /* Responsive Design */
@@ -1632,6 +1641,21 @@
 
     /* Small mobile devices */
     @media (max-width: 480px) {
+      .mobile-nav a {
+        font-size: 1.2rem;
+        margin: 12px 0;
+      }
+
+      .mobile-nav .cta-button {
+        padding: 12px 28px;
+        font-size: 0.9rem;
+        margin-top: 15px;
+      }
+
+      .mobile-nav .language-switcher {
+        margin-top: 15px;
+        transform: scale(0.95);
+      }
       .hero-content h1 {
         font-size: 1.7rem;
       }
@@ -1664,6 +1688,29 @@
 
       .pricing-price {
         font-size: 2.5rem;
+      }
+    }
+
+    /* Very short screens (landscape mobile) */
+    @media (max-height: 600px) and (orientation: landscape) {
+      .mobile-nav {
+        padding: 10px 20px;
+      }
+
+      .mobile-nav a {
+        font-size: 1.1rem;
+        margin: 8px 0;
+      }
+
+      .mobile-nav .cta-button {
+        padding: 10px 24px;
+        font-size: 0.85rem;
+        margin-top: 10px;
+      }
+
+      .mobile-nav .language-switcher {
+        margin-top: 10px;
+        transform: scale(0.9);
       }
     }
 
@@ -1739,12 +1786,10 @@
 
   <!-- Mobile Navigation -->
   <nav class="mobile-nav" id="mobileNav">
-    <a href="#home" onclick="closeMobileMenu()" data-i18n="nav.home">Home</a>
     <a href="#modules" onclick="closeMobileMenu()" data-i18n="nav.modules">Modules</a>
     <a href="#about" onclick="closeMobileMenu()" data-i18n="nav.about">About</a>
     <a href="#pricing" onclick="closeMobileMenu()" data-i18n="nav.pricing">Pricing</a>
-    <button class="cta-button" onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSf2EfatLGiBouR9krSWpJjTayWAqQHsah7l_bVnGokwK8Viqg/viewform', '_blank'); closeMobileMenu()"><span data-i18n="nav.get_started">Get Started</span></button>
-    <div class="language-switcher" style="margin-top: 20px;">
+    <div class="language-switcher">
       <button class="lang-btn active" onclick="changeLanguage('en'); closeMobileMenu()">EN</button>
       <div class="lang-divider"></div>
       <button class="lang-btn" onclick="changeLanguage('ru'); closeMobileMenu()">RU</button>
